@@ -13,6 +13,8 @@ const Formulario = () => {
 		hora: ""		
 	})
 
+	const [error, actualizarError] = useState(false)
+
 	//write on state
 	const handleActividad = e => {
 		actualizarActividad({
@@ -25,11 +27,33 @@ const Formulario = () => {
 	const { nombre, responsable, dependencia, fecha, hora } = actividad;
 
 
+	//form submit
+	const submitActividad = e =>{
+		e.preventDefault();
+
+		//validate
+		if(nombre.trim() === "" || responsable.trim() || dependencia.trim() || fecha.trim() || hora.trim()){
+			actualizarError(true);
+			return;
+		}
+
+
+		//add ID
+
+
+		//activity create
+	}
+
+
 	return(
 		<>
 			<h2>Agregar Actividad</h2>
 
-			<form>
+			{error ? <p className="">Todos los Campos son Obligatorios</p> : null}
+
+			<form
+				onSubmit={submitActividad}
+			>
 				<label className="mt-3">Actividad</label>
 				<input
 					type="text"
