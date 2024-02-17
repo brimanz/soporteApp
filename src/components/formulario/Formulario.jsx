@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 
-//clase 53 pediente
+//clase 59 pediente
 
-const Formulario = () => {
+const Formulario = ({ crearActividad }) => {
 	
 	const [ actividad, actualizarActividad ] = useState({
 		nombre: "",
@@ -31,25 +32,42 @@ const Formulario = () => {
 	const submitActividad = e =>{
 		e.preventDefault();
 
+
 		//validate
-		if(nombre.trim() === "" || responsable.trim() || dependencia.trim() || fecha.trim() || hora.trim()){
+		if(nombre.trim() === "" || responsable.trim() === "" || dependencia.trim() === "" || fecha.trim() === "" || hora.trim() === ""){
 			actualizarError(true);
 			return;
 		}
 
 
+		//delete error message
+		actualizarError(false);
+
+
 		//add ID
+		actividad.id = uuidv4();
 
 
 		//activity create
+		crearActividad(actividad);
+
+
+		//form reset
+		actualizarActividad({
+			nombre: "",
+			responsable: "",
+			dependencia: "",
+			fecha: "",
+			hora: ""
+		})
 	}
 
 
 	return(
 		<>
-			<h2>Agregar Actividad</h2>
+			<h2 className="text-center">Agregar Actividad</h2>
 
-			{error ? <p className="">Todos los Campos son Obligatorios</p> : null}
+			{error ? <p className="alerta-error">Todos los Campos son Obligatorios</p> : null}
 
 			<form
 				onSubmit={submitActividad}
