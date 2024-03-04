@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Actividad = ( { actividad } ) => (
+const Actividad = ( { actividad, eliminarActividad } ) => (
 	<div className="actividad">
 		<p>Actividad: 
 			<span>{actividad.nombre} </span> 
@@ -18,6 +18,11 @@ const Actividad = ( { actividad } ) => (
 		<p>Hora: 
 			<span>{actividad.hora} </span> 
 		</p>
+
+		<button
+			className="btn btn-danger"
+			onClick={ () => eliminarActividad(actividad.id) }
+		>Eliminar &times;</button>
 	</div>
 );
 

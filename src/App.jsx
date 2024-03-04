@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 //components 
 import Header from './components/header/Header'
@@ -10,12 +10,28 @@ const App = () => {
   
   const [actividades, guardarActividades] = useState([]);
 
+  //useEffect
+  useEffect( () => {
+    console.log('documento listo');
+  }, [actividades]);
+
+
+
   const crearActividad = actividad => {
     guardarActividades([
       ...actividades,
       actividad
     ])    
   }
+
+  //delete activities using ID
+  const eliminarActividad = id => {
+    const nuevasActividades = actividades.filter(actividad => actividad.id !== id);
+    guardarActividades(nuevasActividades);
+  }
+
+  //conditional message
+  const title = actividades.length === 0 ? "No hay Actividades" : "Actividades Agregadas"
 
 
   return(
@@ -31,11 +47,12 @@ const App = () => {
             />
           </div>
           <div className="col-md-7 mt-5">
-            <h2 className="text-center">Actividades Coord. Tecnología 9-1-1</h2>
+            <h2 className="text-center">{ title }</h2>
             {actividades.map(actividad => (
               <Actividad
                 key={actividad.id}
                 actividad={actividad}
+                eliminarActividad={eliminarActividad}
               />
             ))}
           </div>

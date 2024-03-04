@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 
-//clase 59 pediente
-
 const Formulario = ({ crearActividad }) => {
 	
 	const [ actividad, actualizarActividad ] = useState({
